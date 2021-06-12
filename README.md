@@ -1,3 +1,20 @@
+# TODO lists
+
+## Add Hardhat template's Feature
+
+- [ ] Add Trezor and Ledger Providers, so BIP31922 mnemonic word can be used with hardware wallet
+- [ ] Integate with **hardhat-etherscan** Plugin so the source code verification process can be automated
+- [ ] Integate with **hardhat-log-remover** Plugin so the we can clean up smart contract after finishing debuging
+- [ ] Integate with **Openzeppelin's defender** , so Account Management Features like Multisignature wallet could be added
+
+## Add following Tasks
+- [ ] Transfer ownership
+- [ ] Verify Contract
+- [ ] Update an on-chain oracle with external data
+- [ ] Repalce a depreciated contract with a new verion
+- [ ] Pause the contract in emergency situation
+
+
 # Documentation
 
 
@@ -55,20 +72,23 @@ export default config;
 
 ## Install Dependenciies
 
+For example, if we want to add more dependecied we just use:
+
 ```
 yarn add -D hardhat-deploy @ethersproject/abstract-signer chai chai-ethers mocha @types/chai @types/mocha @types/node typescript ts-node dotenv
 ```
 ```
-yarn add -D  @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers
-```
-```
-yarn add -D @nomiclabs/hardhat-waffle 'ethereum-waffle@^3.0.0' @nomiclabs/hardhat-ethers 'ethers@^5.0.0'
-```
+These are libraries regarding typescript:
 ```
 yarn add -D hardhat-typechain typechain ts-generator
 ```
+These are libraries regarding smart contract testing:
+
 ```
-yarn add -D @typechain/ethers-v5
+yarn a
+yarn add -D @nomiclabs/hardhat-waffle 'ethereum-waffle@^3.0.0' @nomiclabs/hardhat-ethers 'ethers@^5.0.0'
+```
+dd -D @typechain/ethers-v5
 ```
 To support **openzeppelin-test-helpers**
 ```
@@ -83,6 +103,12 @@ yarn add -D @tenderly/hardhat-tenderly
 brew tap tenderly/tenderly
 brew install tenderly
 ```
+
+However, there is sometimes ploblem with  **hardhat-deploy-ethers** dependency. Here is a way to fix:
+```
+yarn add -D  @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers
+```
+
 
 Edit `hardhat.config.ts` so that it looks as in our repository:
 
@@ -236,14 +262,6 @@ Or we may run each sub-step using
 ```
 yarn hardhat --network bscTestnet deploy --tags 2-3
 ```
-3) Deploy Loan token
-```
-yarn hardhat --network hardhat deploy --tags 3-1
-```
-
-```
-yarn hardhat --network bscTestnet deploy --tags 3-1
-```
 
 ::: tip
 If we messed up, we may redepoly by simply go to `/Deployments` and delete history data eg. `/bscTestnet` and run the scripts again
@@ -306,6 +324,35 @@ yarn hardhat test --logs
 (eg.  fix && test (./deploy && ./test ): Fixing deploy scripts to allow running  with  hardhat  network as well as refactoring hardhat.config.ts && adding working minter test suites
 )
 
-
-
 ## Workflow for Internal USe
+
+**for Author**
+
+```
+git checkout main
+git pull
+git checkout test
+git pull origin main
+git add .
+git commit -m 'docs(./README.md): Add Naming Convention'
+git rebase -i main
+git checkout main
+git merge test
+git push origin main
+```
+**for collaboration**
+
+```
+git checkout main
+git pull upstream main
+git status
+git push
+git checkout test
+git pull upstream main
+git status
+git push
+git add .
+git commit -m 'docs(./README.md): Add Naming Convention'
+git push -u origin test
+```
+Then create a pull request for ‘new_branch’
